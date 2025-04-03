@@ -1,0 +1,120 @@
+body{
+    background-color: #F5F5F5;
+}
+
+.container{
+    display: grid;
+    gap: 5px;
+    grid-template-columns: 1fr 4fr;
+    grid-template-rows: 1fr 5fr 1fr;
+    grid-template-areas:"header header"
+                        "nav main"
+                        "footer footer";
+    height: 99vh;
+    width: 99vw;
+}
+
+.container>*{
+    border-radius: 10px;
+    background-color: #FFFFFF;
+}
+
+header{
+    grid-area: header;
+    color: #2E8B57;
+    text-align: center;
+    font-size: 5rem;
+}
+
+nav{
+    grid-area: nav;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+main{
+    grid-area: main;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 30%));
+    gap: 20px;
+    padding: 20px;
+}
+
+footer{
+    grid-area: footer;
+}
+
+.book{
+    font-size: 20px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: #333333;
+    display: flex;
+    flex-direction: column;
+    background-color: #228B22;
+    border-radius: 5px;
+    padding: 10px;
+    justify-content: space-between;
+    gap: 10px;
+    box-shadow: 4px 5px 10px rgb(153, 153, 153);
+    height: 300px;
+}
+
+.book:hover{
+    background-color: #2E9E2E;
+}
+
+.name, .author, .read, .rating{
+    border-bottom: 2px #333333 solid;
+}
+
+.add-new{
+    font-size: 20px;
+    width: 300px;
+    height: 40px;
+    border-radius: 5px;
+    border: none;
+    background-color: #2E8B57;
+    color: #FFFFFF;
+}
+
+.add-new:hover{
+    background-color: #4BB978;
+}
+
+form{
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 20px;
+}
+
+.form-row{
+    display: flex;
+    justify-content: space-between;
+}
+
+select[name="read"]{
+    width: 228px;
+    font-size: 20px;
+}
+
+input{
+    height: 20px;
+    width: 220px;
+    font-size: 20px;
+}
+
+.remove, .read-btn{
+    background-color: #333333;
+    color: white;
+    font-size: 20px;
+    border-radius: 5px;
+    border: none;
+    height: 30px;
+}
+
+.remove:hover{
+    background-color: rgb(117, 26, 26);
+}

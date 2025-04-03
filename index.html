@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>My library</header>
+        <nav>
+            <form>
+                <div class="form-row">
+                    <label for="name">Name</label>
+                    <input type="text" id="name">
+                </div>
+                <div class="form-row">
+                    <label for="author">Author</label>
+                    <input type="text" id="author">
+                </div>
+                <div class="form-row">
+                    <label for="read">Read</label>
+                    <select name="read" id="read">
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <label for="rating">Rating</label>
+                    <input type="number" id="rating" min="1" max="10">
+                </div>
+                <button class="add-new">Add new book</button>
+            </form>
+        </nav>
+        <main></main>
+        <footer></footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
