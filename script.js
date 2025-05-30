@@ -1,21 +1,23 @@
 const myLibrary = [];
 
-function Book(name, author, read) {
-    this.id = crypto.randomUUID();
-    this.name = name;
-    this.author = author;
-    this.read = read;  
-    this.rating = null;  
-}
-
-Book.prototype.setRating = function(rating){
-    if(this.read === true){
-        this.rating = rating;
+class Book{
+    constructor(name, author, read) {
+        this.id = crypto.randomUUID();
+        this.name = name;
+        this.author = author;
+        this.read = read;  
+        this._rating = null;  
     }
-}
 
-Book.prototype.changeRead = function(){
-    this.read = !this.read;
+    set rating(value){
+        if(this.read === true){
+            this._rating = value;
+        }
+    }
+
+    changeRead(){
+        this.read = !this.read;
+    }
 }
 
 function addBookToLibrary(book) {
@@ -51,10 +53,6 @@ function createRemove(id){
     newRemove.textContent = "Remove";
     newRemove.classList.add("remove");
     newRemove.dataset.id = id;
-    // newRemove.addEventListener("click", (event) => {
-    //     const bookId = id;
-    //     removeFromLibrary(bookId);
-    // });
     return newRemove;
 }
 
@@ -108,7 +106,7 @@ addButton.addEventListener("click", (event) => {
     const newRead = document.querySelector("#read").value === "yes"?true:false;
     const newRating = document.querySelector("#rating").value;
     const newBook = new Book(newName, newAuthor, newRead);
-    newBook.setRating(newRating);
+    newBook.rating = newRating;
     console.log(newBook);
     addBookToLibrary(newBook);
     displayBooks();
