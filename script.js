@@ -40,6 +40,10 @@ function toggleRead(id){
 
 function createRead(id){
     const newRead = document.createElement("button");
+    newRead.addEventListener("click", () => {
+        toggleRead(id);
+        displayBooks();
+    });
     newRead.textContent = "Read";
     newRead.classList.add("read-btn");
     newRead.dataset.id = id; 
@@ -48,13 +52,13 @@ function createRead(id){
 
 function createRemove(id){
     const newRemove = document.createElement("button");
+    newRemove.addEventListener("click", () => {
+        removeFromLibrary(id);
+        displayBooks();
+    });
     newRemove.textContent = "Remove";
     newRemove.classList.add("remove");
     newRemove.dataset.id = id;
-    // newRemove.addEventListener("click", (event) => {
-    //     const bookId = id;
-    //     removeFromLibrary(bookId);
-    // });
     return newRemove;
 }
 
@@ -94,39 +98,48 @@ function displayBooks(){
         const newRead = createRead(book.id);
         bookDiv.appendChild(newRead);
 
-        main.appendChild(bookDiv);
-        
-    })
+        main.appendChild(bookDiv);        
+    });
 }
 
-
+const nameInp = document.getElementById("name");
+const authorInp = document.getElementById("author");
+const rating = document.getElementById("rating");
 const addButton = document.querySelector(".add-new");
+const form  = document.querySelector("form");
+
 addButton.addEventListener("click", (event) => {
     event.preventDefault();
-    const newName = document.querySelector("#name").value;
-    const newAuthor = document.querySelector("#author").value;
-    const newRead = document.querySelector("#read").value === "yes"?true:false;
-    const newRating = document.querySelector("#rating").value;
-    const newBook = new Book(newName, newAuthor, newRead);
-    newBook.setRating(newRating);
-    console.log(newBook);
-    addBookToLibrary(newBook);
-    displayBooks();
+
+    nameInp.setCustomValidity("");
+    authorInp.setCustomValidity("");
+    rating.setCustomValidity("");
+
+    if(form.checkValidity()){
+        const newName = document.querySelector("#name").value;
+        const newAuthor = document.querySelector("#author").value;
+        const newRead = document.querySelector("#read").value === "yes"?true:false;
+        const newRating = document.querySelector("#rating").value;
+        const newBook = new Book(newName, newAuthor, newRead);
+        newBook.setRating(newRating);
+        addBookToLibrary(newBook);
+        displayBooks();
+    }
+    else{
+        if(!rating.validity.valid) {
+            rating.setCustomValidity(rating.validity.valueMissing ? 
+                "Rating is required" : 
+                (rating.validity.rangeUnderflow || rating.validity.rangeOverflow) ? 
+                "Rating should be 1-10" : "Invalid rating");
+            rating.reportValidity();
+        }
+        if(authorInp.validity.valueMissing){
+            authorInp.setCustomValidity("Expected author's name");
+            authorInp.reportValidity();
+        }
+        if(nameInp.validity.valueMissing){
+            nameInp.setCustomValidity("Expected title of the book");
+            nameInp.reportValidity();
+        }
+    }
 });
-
-main.addEventListener("click", (event) => {
-    if(event.target.classList.contains("remove")){
-        const bookId = event.target.dataset.id;
-        removeFromLibrary(bookId);
-        displayBooks();
-    }
-})
-
-main.addEventListener("click", (event) => {
-    if(event.target.classList.contains("read-btn")){
-        const bookId = event.target.dataset.id;
-        toggleRead(bookId);
-        displayBooks();
-        console.log("hello");
-    }
-})
